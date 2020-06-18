@@ -219,10 +219,10 @@ int main ( int argc, char *argv[] ){
         // CREATE OUTPUT OF CHARGED HADRONS //
         OSCARInterface::OutputChargeHadronList(outhadron_name, EventID);
   
-        OSCARInterface::ExecuteToolkit(EventID);
-
     }
-        
+    
+    OSCARInterface::ExecuteToolkit(EventID);
+      
     // EXIT //
     return EXIT_SUCCESS;
 }
