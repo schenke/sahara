@@ -1,0 +1,85 @@
+##################################################
+## Collider type                                ##
+##################################################
+
+
+##################################################
+## LOAD LES HOUCHES STUFF                       ##
+##################################################
+library LesHouches.so 
+##################################################
+
+##################################################
+## CREATE EVENT READER                          ##
+##################################################
+cd /Herwig/EventHandlers 
+create ThePEG::LesHouchesFileReader myReader
+##################################################
+
+
+##################################################
+## DEFINE LHE FILE                              ##
+##################################################
+
+set myReader:FileName TMP/Cluster_SAHARAEvent_41.lhe
+set myReader:CacheFileName cache.tmp
+
+##################################################
+## CUTS ##
+##################################################
+create ThePEG::Cuts NoCuts
+set myReader:Cuts NoCuts
+##################################################
+
+##################################################
+## PDFS ##
+##################################################
+set /Herwig/Particles/e-:PDF /Herwig/Partons/NoPDF
+set /Herwig/Particles/e+:PDF /Herwig/Partons/NoPDF
+
+set myReader:InitPDFs 0
+
+
+set /Herwig/EventHandlers/myReader:PDFA /Herwig/Partons/NoPDF
+set /Herwig/EventHandlers/myReader:PDFB /Herwig/Partons/NoPDF
+
+
+##################################################
+## DECAY HADRONIZATION AND SHOWER ##
+##################################################
+cd /Herwig/EventHandlers
+
+create ThePEG::LesHouchesEventHandler myLesHouchesHandler
+set myLesHouchesHandler:WeightOption UnitWeight
+
+set myLesHouchesHandler:CascadeHandler /Herwig/Shower/ShowerHandler
+set myLesHouchesHandler:HadronizationHandler /Herwig/Hadronization/ClusterHadHandler
+set myLesHouchesHandler:DecayHandler /Herwig/Decays/DecayHandler
+
+set myLesHouchesHandler:PartonExtractor /Herwig/Partons/EEExtractor
+
+set myLesHouchesHandler:CascadeHandler:MPIHandler NULL
+
+set /Herwig/Shower/KinematicsReconstructor:ReconstructionOption General
+
+##################################################
+
+
+
+##################################################
+## EVENT READER ##
+##################################################
+cd /Herwig/EventHandlers
+insert myLesHouchesHandler:LesHouchesReaders 0 myReader
+##################################################
+
+
+##################################################
+## CREATE RUN FILE ##
+##################################################
+cd /Herwig/Generators
+cp EventGenerator myLesHouchesGenerator
+set myLesHouchesGenerator:EventHandler /Herwig/EventHandlers/myLesHouchesHandler
+saverun TMP/Cluster_HERWIGOutput_41 myLesHouchesGenerator
+##################################################
+
