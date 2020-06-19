@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
-event=$1
+class=$1
+event=$2
 
-scp ./hadronic_afterburner_toolkit/hadronic_afterburner_tools.e ./OUTPUT/$event
-scp -r ./hadronic_afterburner_toolkit/EOS ./OUTPUT/$event
+scp ./hadronic_afterburner_toolkit/hadronic_afterburner_tools.e ./OUTPUT/$class/$event
+scp ./hadronic_afterburner_toolkit/parameters.dat ./OUTPUT/$class/$event
+scp -r ./hadronic_afterburner_toolkit/EOS ./OUTPUT/$class/$event
 
-cd ./OUTPUT/$event
+cd ./OUTPUT/$class/$event
 mkdir results
 mv OSCAR.dat ./results
 ./hadronic_afterburner_tools.e

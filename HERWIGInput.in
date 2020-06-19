@@ -21,7 +21,7 @@ create ThePEG::LesHouchesFileReader myReader
 ## DEFINE LHE FILE                              ##
 ##################################################
 
-set myReader:FileName TMP/Cluster_SAHARAEvent_41.lhe
+set myReader:FileName TMP/Cluster_SAHARAEvent_42.lhe
 set myReader:CacheFileName cache.tmp
 
 ##################################################
@@ -80,6 +80,6 @@ insert myLesHouchesHandler:LesHouchesReaders 0 myReader
 cd /Herwig/Generators
 cp EventGenerator myLesHouchesGenerator
 set myLesHouchesGenerator:EventHandler /Herwig/EventHandlers/myLesHouchesHandler
-saverun TMP/Cluster_HERWIGOutput_41 myLesHouchesGenerator
+saverun TMP/Cluster_HERWIGOutput_42 myLesHouchesGenerator
 ##################################################
 

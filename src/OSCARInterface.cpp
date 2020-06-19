@@ -7,10 +7,10 @@ namespace OSCARInterface{
   }
 
   // RUN CHUN'S HADRONIC AFTERBURNER TOOLKIT //
-  void ExecuteToolkit(int EventID){
+  void ExecuteToolkit(std::string EventClass, int EventID){
     
     std::stringstream command;
-    command << "./run_toolkit.sh " << EventID;
+    command << "./run_toolkit.sh " << EventClass << " " << EventID;
     std::string SystemCommand=command.str();
     system(SystemCommand.c_str());       
 

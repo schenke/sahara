@@ -177,21 +177,21 @@ int main ( int argc, char *argv[] ){
     IPGlasmaInterface::Setup(EventClass,EventID);
     
     std::stringstream outfolder_stream;
-    outfolder_stream << "./OUTPUT/" << EventID;
+    outfolder_stream << "./OUTPUT/" << EventClass << "/" << EventID;
     std::string outfolder_name = outfolder_stream.str();
 	
     int check = mkdir(outfolder_name.c_str(),0777); 
 
 
     if (check){
-      std::cout << "Folder ./OUTPUT/" << EventID << " created." << std::endl;
+      std::cout << "Folder ./OUTPUT/" << EventClass << "/" << EventID << " created." << std::endl;
       }
     
     std::stringstream outparton_stream;
     std::stringstream outhadron_stream;
-    outparton_stream << "./OUTPUT/" << EventID << "/gluons.txt";
+    outparton_stream << "./OUTPUT/" << EventClass << "/" << EventID << "/gluons.txt";
     std::string outparton_name = outparton_stream.str();
-    outhadron_stream << "./OUTPUT/" << EventID << "/OSCAR.dat";
+    outhadron_stream << "./OUTPUT/" << EventClass << "/" << EventID << "/OSCAR.dat";
     std::string outhadron_name = outhadron_stream.str();
 
     OSCARInterface::OSCARHeader(outhadron_name);
@@ -221,7 +221,7 @@ int main ( int argc, char *argv[] ){
   
     }
     
-    OSCARInterface::ExecuteToolkit(EventID);
+    OSCARInterface::ExecuteToolkit(EventClass, EventID);
       
     // EXIT //
     return EXIT_SUCCESS;

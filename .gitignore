@@ -30,6 +30,7 @@
 
 *.swp
 
+.DS_Store
 0.95MB1.05
 OUTPUT
 TMP
