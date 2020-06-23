@@ -118,15 +118,25 @@ int main ( int argc, char *argv[] ){
 
     IPGlasmaInterface::Setup(EventClass,EventID);
     
+    // SETUP FOLDER STRUCTURE FOR OUTPUTS AND TEMPORARY FILES //
     std::stringstream outfolder_stream;
     outfolder_stream << "./OUTPUT/" << EventClass << "/" << EventID;
     std::string outfolder_name = outfolder_stream.str();
 	
     int check = mkdir(outfolder_name.c_str(),0777); 
 
-
     if (check){
       std::cout << "Folder ./OUTPUT/" << EventClass << "/" << EventID << " created." << std::endl;
+      }
+
+    std::stringstream tmp_stream;
+    tmp_stream << "./OUTPUT/" << EventClass << "/" << EventID << "/TMP";
+    std::string tmp_name = tmp_stream.str();
+	
+    check = mkdir(tmp_name.c_str(),0777); 
+
+    if (check){
+      std::cout << "Folder " << tmp_stream.str() << " created." << std::endl;
       }
     
     std::stringstream outparton_stream;
@@ -136,12 +146,19 @@ int main ( int argc, char *argv[] ){
     outhadron_stream << "./OUTPUT/" << EventClass << "/" << EventID << "/OSCAR.dat";
     std::string outhadron_name = outhadron_stream.str();
 
+    std::stringstream log_str;
+    log_str << outfolder_stream.str() << "/ClusteringLog.txt";
+    std::stringstream conf_str;
+    conf_str << outfolder_stream.str() << "/ClusterConfigurationLog.txt";
+    std::stringstream tempFile_str;
+    tempFile_str << tmp_stream.str() << "/Cluster";
+
     OSCARInterface::OSCARHeader(outhadron_name);
     
     HERWIGInterface::BACKUPClusters::Setup();
     
     
-    for(int s=0; s<1; s++){
+    for(int s=0; s<2; s++){
       cout << "_________ " << s << " ________" << endl;
 
         // SAMPLE GLUONS FROM IP-GLASMA EVENT //
@@ -153,17 +170,17 @@ int main ( int argc, char *argv[] ){
         ClusteringAlgorithm::Setup();
         
         // PERFORM CLUSTERING //
-        ClusteringAlgorithm::Cluster("TMP/ClusteringLog.txt","TMP/ClusterConfigurationLog.txt",5000);
+        ClusteringAlgorithm::Cluster(log_str.str(),conf_str.str(),5000);
         
         // GENERATE LES HOUCHES FILES //
-        Clusters.GenerateLesHouchesFile("TMP/Cluster");
+        Clusters.GenerateLesHouchesFile(tempFile_str.str());
         
         // EXCEUTE HERWIG AND GET HADRONS //
-        HERWIGInterface::Execute("TMP/Cluster");
+        HERWIGInterface::Execute(tempFile_str.str());
         
         // CREATE OUTPUT OF CHARGED HADRONS //
         OSCARInterface::OutputChargeHadronList(outhadron_name, EventID);
-  
+ 
     }
     
     OSCARInterface::ExecuteToolkit(EventClass, EventID);

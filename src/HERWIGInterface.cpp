@@ -231,7 +231,12 @@ namespace HERWIGInterface{
             for(int j=0;j<Clusters.ClusterList.at(i).HadronList.size();j++){
                 GlobalHadronList.push_back(Clusters.ClusterList.at(i).HadronList.at(j));
             }
-            
+         
+            // REMOVE TEMPORARY FILES //
+            std::string SystemCommand="";
+            SystemCommand="rm " + fname + "*.log";
+            system(SystemCommand.c_str());
+ 
         }
         
     }
