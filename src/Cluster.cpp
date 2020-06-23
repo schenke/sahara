@@ -43,8 +43,6 @@ public:
     bool isSplittable;
     bool isExchangeable;
     
-    bool isAtRest;
-    
 private:
     
     // CENTER OF MASS VELOCITY AND MOMENTUM //
@@ -111,17 +109,18 @@ public:
             isExchangeable=false;
         }
         
-        isAtRest=false;
-        
         // CALCULATE CENTER OF MASS AND DCA VOLUME //
         CalcCenterOfMass();
         CalcDCAVolume();
     }
     
-private:
+public:
     
     // ENERGY AND INVARIANT MASS OF CLUSTER //
     double ECluster; double QCluster;
+    
+private:
+
     
     // COLORS AND ANTI-COLORS OF CLUSTER PARTICLES //
     std::vector<int> Colors;

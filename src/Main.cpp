@@ -45,64 +45,6 @@ ClusterConfiguration Clusters;
 // OSCAR INTERFACE //
 #include "OSCARInterface.cpp"
 
-// GET PARTICLE LIST AS INPUT //
-void GetParticleList(std::string filename){
-    
-    std::cerr << "#Getting particle list from file " << filename << std::endl;
-    std::fstream file( filename.c_str(), std::ios::in );
-    
-    bool setEnergyMassless =true;
-    
-    if ( file )
-    {
-        std::string line;
-        std::stringstream inStream;
-        double content;
-        
-        do
-        {
-            std::getline( file, line );
-            
-            if ( line.find( "#", 0 ) == std::string::npos && line.length() != 0 )    //ignore empty lines and lines with leading "#"
-            {
-                if ( line.find( "-inf", 0 ) == std::string::npos )  //the string "-inf" can't be pushed into a vector<double>
-                {
-                    
-                    Particle NewParton;
-                    
-                    inStream.str("");
-                    inStream.clear();
-                    
-                    inStream.str(line);
-                    inStream >> NewParton.Mom.Px() >> NewParton.Mom.Py() >> NewParton.Mom.Pz() >> NewParton.Mom.E() >> NewParton.Pos.X() >> NewParton.Pos.Y() >> NewParton.Pos.Z() >> NewParton.Pos.T();
-                    
-                    if(setEnergyMassless){
-                        NewParton.Mom.E() = sqrt(NewParton.Mom.vec2());
-                    }
-                    
-                    
-                    if ( !inStream.fail() )
-                    {
-                        GlobalPartonList.push_back(NewParton);
-                    }
-                    else
-                    {
-                        std::cerr << "#Critical error in loading particle list from file " << filename << std::endl;
-                        exit(0);
-                    }
-                }
-                else
-                {
-                    
-                }
-                
-            }
-        }
-        while ( !file.eof() );
-    }
-    std::cerr << "#Succesfully loaded list of " << GlobalPartonList.size() << " GlobalPartonList from file " << filename << std::endl;
-}
-
 // CREATE OUTPUT OF PARTON LIST //
 void OutputPartonList(std::string filename){
     
@@ -196,7 +138,10 @@ int main ( int argc, char *argv[] ){
 
     OSCARInterface::OSCARHeader(outhadron_name);
     
-    for(int s=0; s<2; s++){
+    HERWIGInterface::BACKUPClusters::Setup();
+    
+    
+    for(int s=0; s<1; s++){
       cout << "_________ " << s << " ________" << endl;
 
         // SAMPLE GLUONS FROM IP-GLASMA EVENT //

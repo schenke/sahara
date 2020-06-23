@@ -121,7 +121,7 @@ namespace HERWIGInterface{
         
     }
     
-    void GetHadrons(std::string fname,int iCluster){
+    void GetHadrons(std::string fname,int iCluster,std::vector<Cluster> &ClusterList){
         
         // GET HERWIG OUTPUT FILE //
         std::string HerwigOutput = fname + "_HERWIGOutput_" + std::to_string(iCluster) + ".log";
@@ -159,7 +159,7 @@ namespace HERWIGInterface{
                     
                     NewHadron.m = atof(HadronLine[4].c_str());
                     
-                    Clusters.ClusterList.at(iCluster).BoostedHadronList.push_back(NewHadron);
+                    ClusterList.at(iCluster).BoostedHadronList.push_back(NewHadron);
                     
                     
                     StartReading=2;
@@ -194,12 +194,11 @@ namespace HERWIGInterface{
             }
         }
         
-        // BOOST HADRONS BACK TO LAB FRAME AND CHECK ENERGY-MOMENTUM CONSERVATION //
-        Clusters.ClusterList.at(iCluster).BoostToLabFrame();
-        Clusters.ClusterList.at(iCluster).CheckEnergyMomentumConservation();
-        
         
     }
+    
+    
+    #include "BACKUPClusters.cpp"
 
     
     void Execute(std::string fname){
@@ -214,7 +213,18 @@ namespace HERWIGInterface{
             Hadronize(fname,i);
             
             // GET HADRONS //
-            GetHadrons(fname,i);
+            GetHadrons(fname,i,Clusters.ClusterList);
+            
+            // CHECK THAT HERWIG CORRECTLY HADRONIZED THE EVENT AND IF NOT GENERATE A BACKUP CLUSTER //
+            if(Clusters.ClusterList.at(i).BoostedHadronList.size()==0){
+                
+                std::cerr << "########### WARNING -- HADRONIZATION IN HERWIG FAILED ##############" << std::endl;
+                Clusters.ClusterList.at(i).BoostedHadronList=BACKUPClusters::GenerateHadronicCluster(Clusters.ClusterList.at(i).ECluster);
+            }
+            
+            // BOOST HADRONS BACK TO LAB FRAME AND CHECK ENERGY-MOMENTUM CONSERVATION //
+            Clusters.ClusterList.at(i).BoostToLabFrame();
+            Clusters.ClusterList.at(i).CheckEnergyMomentumConservation();
             
 
             // WRITE HADRONS TO GLOBAL HADRON LIST //
@@ -224,11 +234,7 @@ namespace HERWIGInterface{
             
         }
         
-        
     }
     
     
-    
-    
-
 }
