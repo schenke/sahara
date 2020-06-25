@@ -12,6 +12,7 @@ namespace HERWIGInterface{
         
         std::string LHEFilename = fname + "_SAHARAEvent_" + std::to_string(iCluster) + ".lhe";
         std::string HerwigFilename = fname + "_HERWIGOutput_" + std::to_string(iCluster);
+        std::string HerwigInputFilename = fname + "_HerwigInput.in";
         
         // GENERATE HERWIG INPUT FILE //
         std::string HerwigInput="";
@@ -103,13 +104,13 @@ namespace HERWIGInterface{
         
         // CREATE HERWIG INPUT FILE //
         std::ofstream OutStream;
-        OutStream.open("HERWIGInput.in");
+        OutStream.open(HerwigInputFilename);
         OutStream << HerwigInput;
         OutStream.close();
         
         // CREATE HERWIG EXECUTION COMMAND //
         std::string SystemCommand="";
-        SystemCommand="Herwig read HERWIGInput.in; Herwig run " + HerwigFilename + ".run -N 1";
+        SystemCommand="./Herwig read " + HerwigInputFilename + "; ./Herwig run " + HerwigFilename + ".run -N 1";
         
         // CREATE FAKE-HERWIG EXECUTION COMMAND //
         //std::string SystemCommand="";

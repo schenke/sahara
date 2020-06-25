@@ -9,6 +9,6 @@ scp -r ./hadronic_afterburner_toolkit/EOS ./OUTPUT/$class/$event
 
 cd ./OUTPUT/$class/$event
 mkdir results
-mv OSCAR.dat ./results
+mv OSCAR.dat ./results/OSCAR.DAT
 ./hadronic_afterburner_tools.e
 
