@@ -80,6 +80,7 @@ namespace HERWIGInterface{
         HerwigInput+="\n";
         HerwigInput+="set /Herwig/Shower/KinematicsReconstructor:ReconstructionOption General\n";
         HerwigInput+="\n";
+        HerwigInput+="set /Herwig/Shower/ShowerHandler:MaxTry 2\n";
         HerwigInput+="##################################################\n";
         HerwigInput+="\n";
         HerwigInput+="\n";
