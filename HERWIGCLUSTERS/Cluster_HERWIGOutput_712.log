@@ -1,0 +1,43 @@
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+>>>> Toolkit for HEP Event Generation - ThePEG 2.2.0 <<<<<<<<<<<<<<<<<<<<<<<<<
+>>>> Tue Jun 30 00:47:31 2020                                             <<<<
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+>> Herwig 7.2.0 / ThePEG 2.2.0
+
+/Herwig/EventHandlers/NoCuts:
+MHat  = 2 .. 3.55432 GeV
+Scale = 0 .. 1e+12 GeV2
+YHat  = -100 .. 100
+X1    = 0 .. 1
+X2    = 0 .. 1
+
+* A warning exception of type ThePEG::LesHouchesReader::LesHouchesReopenWarning occurred while generating event number 1: 
+Reopening LesHouchesReader 'myReader' after accessing 2 events out of 1
+* A warning exception of type ThePEG::LesHouchesReader::LesHouchesReopenWarning occurred while generating event number 1: 
+Reopening LesHouchesReader 'myReader' after accessing 3 events out of 1
+* A warning exception of type ThePEG::LesHouchesReader::LesHouchesReopenWarning occurred while generating event number 1: 
+Reopening LesHouchesReader 'myReader' after accessing 4 events out of 1
+* A warning exception of type ThePEG::LesHouchesReader::LesHouchesReopenWarning occurred while generating event number 1: 
+Reopening LesHouchesReader 'myReader' after accessing 5 events out of 1
+* A warning exception of type ThePEG::LesHouchesReader::LesHouchesReopenWarning occurred while generating event number 1: 
+Reopening LesHouchesReader 'myReader' after accessing 6 events out of 1
+* A warning exception of type ThePEG::LesHouchesReader::LesHouchesReopenWarning occurred while generating event number 1: 
+Reopening LesHouchesReader 'myReader' after accessing 7 events out of 1
+* A warning exception of type ThePEG::LesHouchesReader::LesHouchesReopenWarning occurred while generating event number 1: 
+Reopening LesHouchesReader 'myReader' after accessing 8 events out of 1
+* A warning exception of type ThePEG::LesHouchesReader::LesHouchesReopenWarning occurred while generating event number 1: 
+Reopening LesHouchesReader 'myReader' after accessing 9 events out of 1
+* A warning exception of type ThePEG::LesHouchesReader::LesHouchesReopenWarning occurred while generating event number 1: 
+Reopening LesHouchesReader 'myReader' after accessing 10 events out of 1
+* A warning exception of type ThePEG::LesHouchesReader::LesHouchesReopenWarning occurred while generating event number 1: 
+Reopening LesHouchesReader 'myReader' after accessing 11 events out of 1
+No more warnings of this kind will be reported.
+*** An run exception of type ThePEG::EventHandler::EventLoopException occurred while generating event number 1: 
+The maximum number of attempts per event (100000) in event handler 'myLesHouchesHandler' was exceeded.
+This exception is too serious. Execution will be stopped.
+An exception occurred before any event object was created!
+
+The following exception classes were reported in this run:
+ThePEG::EventHandler::EventLoopException runerror (1 times)
+ThePEG::LesHouchesReader::LesHouchesReopenWarning warning (99998 times)
