@@ -18,7 +18,7 @@ namespace BACKUPClusters{
             DefaultClusters.push_back(NewCluster);
             
             // GET DEFAULT CLUSTER FROM LIST //
-            HERWIGInterface::GetHadrons("HERWIGCLUSTERS/Cluster",i,DefaultClusters);
+            HERWIGInterface::GetHadrons("../HERWIGCLUSTERS/Cluster",i,DefaultClusters);
 
             // SET HADRONIC ENERGY AND MINIMAL ENERGY (SUM OF HADRON MASSES) AND ADD TO LIST //
             DefaultClusters.at(i).HadronicClusterMom=VectorEPxPyPz(0,0,0,0);

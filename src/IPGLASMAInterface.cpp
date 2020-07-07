@@ -70,7 +70,7 @@ namespace IPGlasmaInterface{
                 yValues[yIndex]=0.5*((yLow+yHigh+1)-4*NsY)*aYfm;
 
                 // GET RELEVANT INPUT FILE //
-                std::string fname= "EVENTCLASSES/" + EventClass + "/EventID" + std::to_string(EventID) + "/SMEAREDDISTRIBUTION/SmearedDistributionT0.2005fm" + std::to_string(xLow) + "X" + std::to_string(xHigh) + "_" + std::to_string(yLow) + "Y" + std::to_string(yHigh) + "ID" + std::to_string(EventID) + ".txt";
+                std::string fname= "../EVENTCLASSES/" + EventClass + "/EventID" + std::to_string(EventID) + "/SMEAREDDISTRIBUTION/SmearedDistributionT0.2005fm" + std::to_string(xLow) + "X" + std::to_string(xHigh) + "_" + std::to_string(yLow) + "Y" + std::to_string(yHigh) + "ID" + std::to_string(EventID) + ".txt";
                 
                 std::cerr << "#NOW LOADING " << fname << std::endl;
 

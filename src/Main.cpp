@@ -158,7 +158,7 @@ int main ( int argc, char *argv[] ){
     HERWIGInterface::BACKUPClusters::Setup();
     
     
-    for(int s=0; s<100; s++){
+    for(int s=0; s<10; s++){
       cout << "_________ " << s << " ________" << endl;
 
         // SAMPLE GLUONS FROM IP-GLASMA EVENT //
@@ -182,9 +182,10 @@ int main ( int argc, char *argv[] ){
         OSCARInterface::OutputChargeHadronList(outhadron_name, EventID);
  
     }
-    
-    OSCARInterface::ExecuteToolkit(EventClass, EventID);
-      
+
+    // COMPUTE OBSERVABLES FOR A GIVEN IPGLASMA EVENT (AVERAGE OVER HERWIG RUNS) //
+    //OSCARInterface::ExecuteToolkit(EventClass, EventID);
+     
     // EXIT //
     return EXIT_SUCCESS;
 }
