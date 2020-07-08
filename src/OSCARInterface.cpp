@@ -15,6 +15,32 @@ namespace OSCARInterface{
     system(SystemCommand.c_str());       
 
     }
+
+  // CREATE OUTPUT OF PARTON LIST //
+  void OutputPartonList(std::string filename, int eventID){
+
+    std::ofstream OutStream; OutStream.open(filename, std::ofstream::app);
+    
+    OutStream << eventID << " " << GlobalPartonList.size() << std::endl;
+
+    for(int i=0;i<GlobalPartonList.size();i++){
+      
+      // number  pdgID  px  py  pz  E  mass   x  y  z  t
+      // WRITE CHARGED PIONS, KAONS, (ANTI-)PROTONS 
+      OutStream << i << " " 
+                  << Particle::mapToPDG(GlobalPartonList.at(i).FLAVOR) << " " 
+                  << GlobalPartonList.at(i).Mom.Px() << " " 
+                  << GlobalPartonList.at(i).Mom.Py() << " " 
+                  << GlobalPartonList.at(i).Mom.Pz() << " " 
+                  << GlobalPartonList.at(i).Mom.E() << " " 
+                  << GlobalPartonList.at(i).m << " " 
+                  << GlobalPartonList.at(i).Pos.X() << " " 
+                  << GlobalPartonList.at(i).Pos.Y() << " " 
+                  << GlobalPartonList.at(i).Pos.Z() << " " 
+                  << GlobalPartonList.at(i).Pos.T() << " " << std::endl;
+    }
+    OutStream.close();
+  }
     
   // CREATE OUTPUT OF CHARGED HADRON LIST //
   void OutputChargeHadronList(std::string filename, int eventID){

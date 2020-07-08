@@ -34,4 +34,7 @@
 0.95MB1.05
 OUTPUT
 TMP
+plots
+plots/*
 cache.tmp
+Herwig

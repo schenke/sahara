@@ -45,18 +45,18 @@ ClusterConfiguration Clusters;
 // OSCAR INTERFACE //
 #include "OSCARInterface.cpp"
 
-// CREATE OUTPUT OF PARTON LIST //
-void OutputPartonList(std::string filename){
+// // CREATE OUTPUT OF PARTON LIST //
+// void OutputPartonList(std::string filename){
     
-    std::ofstream OutStream; OutStream.open(filename,std::ofstream::out | std::ofstream::app);
+//     std::ofstream OutStream; OutStream.open(filename,std::ofstream::out | std::ofstream::app);
     
-    for(int i=0;i<GlobalPartonList.size();i++){
-        OutStream << GlobalPartonList.at(i).Mom.Px() << " " << GlobalPartonList.at(i).Mom.Py() << " " << GlobalPartonList.at(i).Mom.Pz() << " " << GlobalPartonList.at(i).Mom.E() << " " << Particle::mapToPDG(GlobalPartonList.at(i).FLAVOR) << std::endl;
-    }
+//     for(int i=0;i<GlobalPartonList.size();i++){
+//         OutStream << GlobalPartonList.at(i).Mom.Px() << " " << GlobalPartonList.at(i).Mom.Py() << " " << GlobalPartonList.at(i).Mom.Pz() << " " << GlobalPartonList.at(i).Mom.E() << " " << Particle::mapToPDG(GlobalPartonList.at(i).FLAVOR) << std::endl;
+//     }
     
-    OutStream.close();
+//     OutStream.close();
     
-}
+// }
 
 // CREATE OUTPUT OF CHARGED HADRON LIST //
 void OutputChargeHadronList(std::string filename){
@@ -141,7 +141,7 @@ int main ( int argc, char *argv[] ){
     
     std::stringstream outparton_stream;
     std::stringstream outhadron_stream;
-    outparton_stream << "./OUTPUT/" << EventClass << "/" << EventID << "/gluons.txt";
+    outparton_stream << "./OUTPUT/" << EventClass << "/" << EventID << "/OSCARpartons.dat";
     std::string outparton_name = outparton_stream.str();
     outhadron_stream << "./OUTPUT/" << EventClass << "/" << EventID << "/OSCAR.dat";
     std::string outhadron_name = outhadron_stream.str();
@@ -154,6 +154,7 @@ int main ( int argc, char *argv[] ){
     tempFile_str << tmp_stream.str() << "/Cluster";
 
     OSCARInterface::OSCARHeader(outhadron_name);
+    OSCARInterface::OSCARHeader(outparton_name);
     
     HERWIGInterface::BACKUPClusters::Setup();
     
@@ -164,8 +165,6 @@ int main ( int argc, char *argv[] ){
         // SAMPLE GLUONS FROM IP-GLASMA EVENT //
         IPGlasmaInterface::Sample();
                
-        OutputPartonList(outparton_name);
-        
         // SETUP CLUSTERING ALGORITHM //
         ClusteringAlgorithm::Setup();
         
@@ -180,6 +179,9 @@ int main ( int argc, char *argv[] ){
         
         // CREATE OUTPUT OF CHARGED HADRONS //
         OSCARInterface::OutputChargeHadronList(outhadron_name, EventID);
+
+        // CREATE OUTPUT OF PARTONS //
+        OSCARInterface::OutputPartonList(outparton_name, EventID);
  
     }
 
