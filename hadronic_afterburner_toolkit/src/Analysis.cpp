@@ -132,6 +132,8 @@ void Analysis::FlowAnalysis() {
     spvn.push_back(new singleParticleSpectra(paraRdr_, path_, ran_gen_ptr_));
     paraRdr_.setVal("particle_monval", -2212);
     spvn.push_back(new singleParticleSpectra(paraRdr_, path_, ran_gen_ptr_));
+    paraRdr_.setVal("particle_monval", 21);
+    spvn.push_back(new singleParticleSpectra(paraRdr_, path_, ran_gen_ptr_));
     if (paraRdr_.getVal("resonance_weak_feed_down_flag") == 0) {
         paraRdr_.setVal("particle_monval", 3122);
         spvn.push_back(new singleParticleSpectra(paraRdr_, path_,
