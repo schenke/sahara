@@ -49,7 +49,7 @@ namespace BACKUPClusters{
             DefaultClusterEMin.push_back(EMin);
 
             
-            std::cerr << "BACKUP " << DefaultClusterETot.at(i) << " " << DefaultClusterEMin.at(i) << std::endl;
+	    //            std::cerr << "BACKUP " << DefaultClusterETot.at(i) << " " << DefaultClusterEMin.at(i) << std::endl;
             
         }
         

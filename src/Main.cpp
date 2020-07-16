@@ -159,7 +159,7 @@ int main ( int argc, char *argv[] ){
     HERWIGInterface::BACKUPClusters::Setup();
     
     
-    for(int s=0; s<10; s++){
+    for(int s=0; s<5; s++){
       cout << "_________ " << s << " ________" << endl;
 
         // SAMPLE GLUONS FROM IP-GLASMA EVENT //
