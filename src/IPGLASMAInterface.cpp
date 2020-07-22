@@ -1,7 +1,8 @@
 namespace IPGlasmaInterface{
     
-    static const double M_HBARC=0.197;
-    
+  static const double M_HBARC=0.1973269804;
+  static const double g=2.75;
+  
     double *pXValues;
     double *pYValues;
     
@@ -28,7 +29,6 @@ namespace IPGlasmaInterface{
     
     double aXGeV=aXfm/M_HBARC;
     double aYGeV=aYfm/M_HBARC;
-
     
     inline int Index4D(int x,int y,int pX,int pY){
         return pY+NpY*(pX+NpX*(y+NsY*x));
@@ -70,7 +70,7 @@ namespace IPGlasmaInterface{
                 yValues[yIndex]=0.5*((yLow+yHigh+1)-4*NsY)*aYfm;
 
                 // GET RELEVANT INPUT FILE //
-                std::string fname= "../EVENTCLASSES/" + EventClass + "/EventID" + std::to_string(EventID) + "/SMEAREDDISTRIBUTION/SmearedDistributionT0.2005fm" + std::to_string(xLow) + "X" + std::to_string(xHigh) + "_" + std::to_string(yLow) + "Y" + std::to_string(yHigh) + "ID" + std::to_string(EventID) + ".txt";
+                std::string fname= "/global/cscratch1/sd/schenke/SAHARAalpha10/EVENTCLASSES/" + EventClass + "/EventID" + std::to_string(EventID) + "/SMEAREDDISTRIBUTION/SmearedDistributionT0.2005fm" + std::to_string(xLow) + "X" + std::to_string(xHigh) + "_" + std::to_string(yLow) + "Y" + std::to_string(yHigh) + "ID" + std::to_string(EventID) + ".txt";
                 
                 //std::cerr << "#NOW LOADING " << fname << std::endl;
 
@@ -126,7 +126,7 @@ namespace IPGlasmaInterface{
         // CALCULATE TOTAL MULTIPLICITY dN/dy //
         dNdy=0.0;
         
-        double NormalizationFactor=(2.0*M_PI)*(2.0*M_PI)/((Ns*aXGeV)*(Ns*aYGeV));
+        double NormalizationFactor=(2.0*M_PI)*(2.0*M_PI)/((Ns*aXGeV)*(Ns*aYGeV))/g/g; // bps: 7/19/2020 added division by g^2 to get normalization right
         
         for(int ix=0;ix<NsX;ix++){
             for(int iy=0;iy<NsY;iy++){
@@ -139,7 +139,7 @@ namespace IPGlasmaInterface{
         }
         
         // COMMANDLINE OUTPUT //
-        std::cerr << "#SETTING PROBABILITIES FOR g^2dN/dy=" << dNdy << std::endl;
+        std::cerr << "#SETTING PROBABILITIES FOR dN/dy(g=" << g << ") = " << dNdy << std::endl;
         
         // SET NORMALIZED CUMULATIVE PROBABILITIES //
         double NormalizedProbability=0.0;

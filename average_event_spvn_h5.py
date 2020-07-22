@@ -1316,7 +1316,11 @@ for ipart, particle_id in enumerate(particle_list):
         file_name = 'particle_%s_vndata_diff_eta_-0.5_0.5.dat' % particle_id
     else:
         file_name = 'particle_%s_vndata_diff_y_-0.5_0.5.dat' % particle_id
-    file_name_ref = 'particle_9999_vndata_diff_eta_0.5_2.dat'
+    if particle_id == '21':
+        file_name_ref = 'particle_21_vndata_diff_y_0.5_2.dat'
+    else:
+        file_name_ref = 'particle_9999_vndata_diff_eta_0.5_2.dat'
+
     file_name_ALICE = 'particle_9999_vndata_diff_eta_-1_1.dat'
     file_name_ATLAS = 'particle_9999_vndata_diff_eta_-2_2.dat'
 

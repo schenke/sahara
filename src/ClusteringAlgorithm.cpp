@@ -392,28 +392,28 @@ namespace ClusteringAlgorithm {
             
             StepCounter++;
             
-            if(StepCounter%1000==0){
-                ErrStream << "#STEP -- NUMBER OF CLUSTERS -- NUMBER OF SPLITTABLE CLUSTERS -- NUMBER OF EXCHANGABLE CLUSTERS -- ACTION" << std::endl;
-                ErrStream << StepCounter << " " << Clusters.NumberOfClusters << " " << Clusters.NumberOfSplittableClusters << " " << Clusters.NumberOfExchangeableClusters <<  " " << Clusters.S << std::endl;
-            }
+            // if(StepCounter%1000==0){
+            //     ErrStream << "#STEP -- NUMBER OF CLUSTERS -- NUMBER OF SPLITTABLE CLUSTERS -- NUMBER OF EXCHANGABLE CLUSTERS -- ACTION" << std::endl;
+            //     ErrStream << StepCounter << " " << Clusters.NumberOfClusters << " " << Clusters.NumberOfSplittableClusters << " " << Clusters.NumberOfExchangeableClusters <<  " " << Clusters.S << std::endl;
+            // }
             
-            if(StepCounter%1000==0){
+            // if(StepCounter%1000==0){
                 
-                ErrStream << "#EXCHANGE PROPOSALS -- SPLIT PROPOSALS -- MERGE PROPOSALS" << std::endl;
-                ErrStream << ExchangeProposals << " " << SplitProposals << " " << MergeProposals << std::endl;
+            //     ErrStream << "#EXCHANGE PROPOSALS -- SPLIT PROPOSALS -- MERGE PROPOSALS" << std::endl;
+            //     ErrStream << ExchangeProposals << " " << SplitProposals << " " << MergeProposals << std::endl;
                 
-                ErrStream << "#EXCHANGE ACCEPTANCE -- SPLIT ACCEPTANCE  -- MERGE ACCEPTANCE" << std::endl;
-                ErrStream << ExchangeProposalsAccepted/double(ExchangeProposals) << " " << SplitProposalsAccepted/double(SplitProposals) << " " << MergeProposalsAccepted/double(MergeProposals) << std::endl;
+            //     ErrStream << "#EXCHANGE ACCEPTANCE -- SPLIT ACCEPTANCE  -- MERGE ACCEPTANCE" << std::endl;
+            //     ErrStream << ExchangeProposalsAccepted/double(ExchangeProposals) << " " << SplitProposalsAccepted/double(SplitProposals) << " " << MergeProposalsAccepted/double(MergeProposals) << std::endl;
 
 
-            }
+            // }
             
 //            if(StepCounter%1000==0){
 //                std::cerr << "#CLUSTER CONFIGURATION AFTER STEP " << StepCounter << std::endl;
 //                Clusters.Print();
 //            }
             
-            OutStream << StepCounter << " " << Clusters.NumberOfClusters << " " << Clusters.NumberOfSplittableClusters << " " << Clusters.NumberOfExchangeableClusters << " " << Clusters.S << std::endl;
+//            OutStream << StepCounter << " " << Clusters.NumberOfClusters << " " << Clusters.NumberOfSplittableClusters << " " << Clusters.NumberOfExchangeableClusters << " " << Clusters.S << std::endl;
             
             
             if(StepCounter>10000){
@@ -426,17 +426,17 @@ namespace ClusteringAlgorithm {
         
 
         
-        // CREATE OUTPUT //
-        std::cerr << "##### <NCl>=" << AvgNCl/Counts << " +/- " << std::sqrt((AvgNClSqr/Counts-(AvgNCl/Counts)*(AvgNCl/Counts))/(Counts-1)) << std::endl;
+        // // CREATE OUTPUT //
+        // std::cerr << "##### <NCl>=" << AvgNCl/Counts << " +/- " << std::sqrt((AvgNClSqr/Counts-(AvgNCl/Counts)*(AvgNCl/Counts))/(Counts-1)) << std::endl;
         
-        std::cerr << "##### CLUSTERING STATISTICS -- NCl -- P(NCl)" << std::endl;
-        for(int i=0;i<=GlobalPartonList.size();i++){
-            if(ClusterHistogram[i]!=0.0){
-                std::cerr << i << " " << ClusterHistogram[i]/Counts << std::endl;
-            }
-        }
-        std::cerr << "##### CLUSTER CONFIGURATION AFTER STEP " << StepCounter << std::endl;
-        Clusters.Print();
+        // std::cerr << "##### CLUSTERING STATISTICS -- NCl -- P(NCl)" << std::endl;
+        // for(int i=0;i<=GlobalPartonList.size();i++){
+        //     if(ClusterHistogram[i]!=0.0){
+        //         std::cerr << i << " " << ClusterHistogram[i]/Counts << std::endl;
+        //     }
+        // }
+        // std::cerr << "##### CLUSTER CONFIGURATION AFTER STEP " << StepCounter << std::endl;
+        // Clusters.Print();
         
         delete[] ClusterHistogram;
         

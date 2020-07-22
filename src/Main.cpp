@@ -123,7 +123,7 @@ int main ( int argc, char *argv[] ){
     outfolder_stream << "./OUTPUT/" << EventClass << "/" << EventID;
     std::string outfolder_name = outfolder_stream.str();
 	
-    int check = mkdir(outfolder_name.c_str(),0777); 
+    int check= mkdir(outfolder_name.c_str(),0777); 
 
     if (check){
       std::cout << "Folder ./OUTPUT/" << EventClass << "/" << EventID << " created." << std::endl;
@@ -139,10 +139,10 @@ int main ( int argc, char *argv[] ){
       std::cout << "Folder " << tmp_stream.str() << " created." << std::endl;
       }
     
-    std::stringstream outparton_stream;
+    //    std::stringstream outparton_stream;
     std::stringstream outhadron_stream;
-    outparton_stream << "./OUTPUT/" << EventClass << "/" << EventID << "/OSCARpartons.dat";
-    std::string outparton_name = outparton_stream.str();
+    //outparton_stream << "./OUTPUT/" << EventClass << "/" << EventID << "/OSCARpartons.dat";
+    //std::string outparton_name = outparton_stream.str();
     outhadron_stream << "./OUTPUT/" << EventClass << "/" << EventID << "/OSCAR.dat";
     std::string outhadron_name = outhadron_stream.str();
 
@@ -154,12 +154,12 @@ int main ( int argc, char *argv[] ){
     tempFile_str << tmp_stream.str() << "/Cluster";
 
     OSCARInterface::OSCARHeader(outhadron_name);
-    OSCARInterface::OSCARHeader(outparton_name);
+    //    OSCARInterface::OSCARHeader(outparton_name);
     
     HERWIGInterface::BACKUPClusters::Setup();
     
     
-    for(int s=0; s<5; s++){
+    for(int s=0; s<10; s++){
       cout << "_________ " << s << " ________" << endl;
 
         // SAMPLE GLUONS FROM IP-GLASMA EVENT //
@@ -181,7 +181,7 @@ int main ( int argc, char *argv[] ){
         OSCARInterface::OutputChargeHadronList(outhadron_name, EventID);
 
         // CREATE OUTPUT OF PARTONS //
-        OSCARInterface::OutputPartonList(outparton_name, EventID);
+	//        OSCARInterface::OutputPartonList(outparton_name, EventID);
  
     }
 

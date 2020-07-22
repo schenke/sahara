@@ -160,8 +160,8 @@ private:
             std::cerr << "#CLUSTER MOMENTUM IS E=" << P_LRF.Px() << " Px=" << P_LRF.Px() << " Py=" << P_LRF.Py() << " Pz=" << P_LRF.Pz() << std::endl;
         }
         else{
-            std::cerr << "#CLUSTER BOOSTED BY " << Beta.E() << " " << Beta.Px() << " " << Beta.Py() << " " << Beta.Pz() << std::endl;
-            std::cerr << "#CLUSTER MOMENTUM IS E=" << P_LRF.Px() << " Px=" << P_LRF.Px() << " Py=" << P_LRF.Py() << " Pz=" << P_LRF.Pz() << std::endl;
+	  //  std::cerr << "#CLUSTER BOOSTED BY " << Beta.E() << " " << Beta.Px() << " " << Beta.Py() << " " << Beta.Pz() << std::endl;
+          //  std::cerr << "#CLUSTER MOMENTUM IS E=" << P_LRF.Px() << " Px=" << P_LRF.Px() << " Py=" << P_LRF.Py() << " Pz=" << P_LRF.Pz() << std::endl;
         }
         
         ECluster=P_LRF.E(); QCluster=sqrt(P_LRF.E()*P_LRF.E()-P_LRF.vec2());

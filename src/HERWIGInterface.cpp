@@ -226,7 +226,7 @@ namespace HERWIGInterface{
             
             // BOOST HADRONS BACK TO LAB FRAME AND CHECK ENERGY-MOMENTUM CONSERVATION //
             Clusters.ClusterList.at(i).BoostToLabFrame();
-            Clusters.ClusterList.at(i).CheckEnergyMomentumConservation();
+	    //            Clusters.ClusterList.at(i).CheckEnergyMomentumConservation();  // commented to decrease output
             
 
             // WRITE HADRONS TO GLOBAL HADRON LIST //
@@ -237,6 +237,9 @@ namespace HERWIGInterface{
             // REMOVE TEMPORARY FILES //
             std::string SystemCommand="";
             SystemCommand="rm " + fname + "*.log";
+            SystemCommand="rm " + fname + "*.run";
+            SystemCommand="rm " + fname + "*.tex";
+            SystemCommand="rm " + fname + "*.out";
             system(SystemCommand.c_str());
  
         }

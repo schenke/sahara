@@ -59,8 +59,9 @@ namespace OSCARInterface{
       }
     }
 
-    OutStream << eventID << " " << n_chargedHadrons << std::endl;
 
+    OutStream << eventID << " " << n_chargedHadrons+GlobalPartonList.size() << std::endl;
+    
     // WRITE PARTICLE LIST IN OSCAR FORMAT //
     for(int i=0;i<GlobalHadronList.size();i++){
       
@@ -83,6 +84,23 @@ namespace OSCARInterface{
       }
       
     }
+    //NOW DO GLUONS IN SAME LIST
+    for(int i=0;i<GlobalPartonList.size();i++){
+      
+      // number  pdgID  px  py  pz  E  mass   x  y  z  t
+      OutStream << i << " " 
+                  << Particle::mapToPDG(GlobalPartonList.at(i).FLAVOR) << " " 
+                  << GlobalPartonList.at(i).Mom.Px() << " " 
+                  << GlobalPartonList.at(i).Mom.Py() << " " 
+                  << GlobalPartonList.at(i).Mom.Pz() << " " 
+                  << GlobalPartonList.at(i).Mom.E() << " " 
+                  << GlobalPartonList.at(i).m << " " 
+                  << GlobalPartonList.at(i).Pos.X() << " " 
+                  << GlobalPartonList.at(i).Pos.Y() << " " 
+                  << GlobalPartonList.at(i).Pos.Z() << " " 
+                  << GlobalPartonList.at(i).Pos.T() << " " << std::endl;
+    }
+
     
     OutStream.close();
     
