@@ -155,7 +155,7 @@ private:
                 if(fabs(GetY(pyINPos)-pyIN)>fabs(GetY(pyINPos-1)-pyIN)){
                     pyINPos-- ;
                 }
-                
+                                
                 //CHECK POSITIONS AND SET VALUES TO WILSON LINE ARRAY
                 if(InputCount==Index(pxINPos,pyINPos)){
                     
@@ -182,6 +182,70 @@ private:
         
     }
     
+    void LoadSmeared(std::string fname){
+        
+        //LOAD FROM FILE
+        std::ifstream VIn;
+        
+        VIn.open(fname.c_str());
+        
+        std::string VLine;
+        
+        // GET MOMENTUM VALUES //
+        DOUBLE pxIN,pyIN;
+        
+        // GET MOMENTUM INDICES //
+        INT pxINPos,pyINPos;
+        
+        //NUMBER OF LINES READ FROM FILE
+        INT InputCount=0;
+        
+        //GET DATA FROM INPUT FILES
+        while(VIn.good()){
+            
+            //READ LINES
+            getline(VIn,VLine);
+            
+            //PROCESS FILE LINE BY LINE
+            if(!(VLine.empty())){
+                
+                //STRING TOKENIZE
+                std::stringstream VLineValues(VLine);
+                
+                // GET POSITIONS IN FILE //
+                VLineValues >> pxIN; VLineValues >> pyIN;
+                
+                pxINPos=GetXLowPos(pxIN); pyINPos=GetYLowPos(pyIN);
+                
+                if(fabs(GetX(pxINPos)-pxIN)>fabs(GetX(pxINPos+1)-pxIN)){
+                    pxINPos++;
+                }
+                
+                if(fabs(GetY(pyINPos)-pyIN)>fabs(GetY(pyINPos+1)-pyIN)){
+                    pyINPos++;
+                }
+                
+                
+                if(fabs(GetX(pxINPos)-pxIN)>fabs(GetX(pxINPos-1)-pxIN)){
+                    pxINPos--;
+                }
+                
+                if(fabs(GetY(pyINPos)-pyIN)>fabs(GetY(pyINPos-1)-pyIN)){
+                    pyINPos-- ;
+                }
+                
+                //CHECK POSITIONS AND SET VALUES TO WILSON LINE ARRAY
+                VLineValues >> Values[Index(pxINPos,pyINPos)];
+                
+                //INCREASE POSITION COUNT
+                InputCount++;
+            }
+        }
+        
+        std::cerr << "#SMEARED SPECTRUM LOADED WITH " << InputCount << " INPUT COUNTS" << std::endl;
+
+        
+    }
     
     // SAVE DISCRETE SPECTRUM //
     
@@ -289,7 +353,7 @@ public:
         
     }
     
-    DiscreteSpectrum(std::string fname){
+    DiscreteSpectrum(std::string fname,int Smearing){
         
         // ALLOCATE MEMEORY //
         Values=new DOUBLE[Lattice::N[0]*Lattice::N[1]];
@@ -299,7 +363,16 @@ public:
         }
         
         // LOAD SPECTRUM //
-        Load(fname);
+        if(Smearing==0){
+            Load(fname);
+        }
+        else if(Smearing==1){
+            LoadSmeared(fname);
+        }
+        else{
+            std:cerr << "#SMAERING NOT SPECIFIED" << std::endl;
+            exit(0);
+        }
         
     };
     

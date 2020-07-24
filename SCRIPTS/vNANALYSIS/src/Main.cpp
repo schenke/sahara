@@ -103,22 +103,25 @@ int main(int argc,char **argv){
     
     Konfig arguments(argc,argv);
     
-    char EventInputFile[256]="EventInput.txt";
+    char EventInputFile[1024]="EventInput.txt";
     arguments.Getval("i",EventInputFile);
     
-    char vNGluonOutputFile[256]="vNGluonOutput.txt";
+    char vNGluonOutputFile[1024]="vNGluonOutput.txt";
     arguments.Getval("ovg",vNGluonOutputFile);
     
-    char vNHadronOutputFile[256]="vNHadronOutput.txt";
+    char vNHadronOutputFile[1024]="vNHadronOutput.txt";
     arguments.Getval("ovh",vNHadronOutputFile);
     
-    char SpectrumGluonOutputFile[256]="GluonSpectrumOutput.txt";
+    char SpectrumGluonOutputFile[1024]="GluonSpectrumOutput.txt";
     arguments.Getval("osg",SpectrumGluonOutputFile);
     
-    char SpectrumHadronOutputFile[256]="HadronSpectrumOutput.txt";
+    char SpectrumHadronOutputFile[1024]="HadronSpectrumOutput.txt";
     arguments.Getval("osh",SpectrumHadronOutputFile);
     
-    DiscreteSpectrum *OriginalSpectrum=new DiscreteSpectrum(EventInputFile);
+    int Smearing=0;
+    arguments.Getval("s",Smearing);
+        
+    DiscreteSpectrum *OriginalSpectrum=new DiscreteSpectrum(EventInputFile,Smearing);
     
     // GLUON ANALYSIS //
     InterpolatedSpectrum *GluonSpectrum=new InterpolatedSpectrum(71,48,0.25,18.0,0.0,2.0*M_PI);
@@ -128,6 +131,12 @@ int main(int argc,char **argv){
     
     GluonSpectrum->GetHarmonics(vNGluonOutputFile,4,0.0,8.0);
     GluonSpectrum->GetSpectrum(SpectrumGluonOutputFile);
+    
+    
+    GluonSpectrum->GetVNDelta(4,0,0.0,8.0,"vNDeltaGluonpT0.txt");
+    GluonSpectrum->GetVNDelta(4,1,0.0,8.0,"vNDeltaGluonpT1.txt");
+    GluonSpectrum->GetVNDelta(4,2,0.0,8.0,"vNDeltaGluonpT2.txt");
+
 
     
     // HADRON ANALYSIS //
@@ -139,6 +148,10 @@ int main(int argc,char **argv){
 
     HadronSpectrum->GetHarmonics(vNHadronOutputFile,4,0.0,8.0);
     HadronSpectrum->GetSpectrum(SpectrumHadronOutputFile);
+    
+    HadronSpectrum->GetVNDelta(4,0,0.0,8.0,"vNDeltaHadronpT0.txt");
+    HadronSpectrum->GetVNDelta(4,1,0.0,8.0,"vNDeltaHadronpT1.txt");
+    HadronSpectrum->GetVNDelta(4,2,0.0,8.0,"vNDeltaHadronpT2.txt");
 
 
 }

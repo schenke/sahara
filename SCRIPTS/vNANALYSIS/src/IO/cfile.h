@@ -7,7 +7,7 @@
 using std::ofstream;
 using std::ifstream;
 
-#define K_BHOSSZ 512
+#define K_BHOSSZ 1024
 
 char* strip(char * ezt,int =K_BHOSSZ);
 char* spacekill(char *ezt,int =K_BHOSSZ);
