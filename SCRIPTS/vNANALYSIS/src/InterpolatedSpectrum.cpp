@@ -354,6 +354,54 @@ public:
         OutStream.close();
     }
     
+public:
+    
+    void GetVNDelta(int NumberOfHarmonics,int nWeight,DOUBLE pTCutLow,DOUBLE pTCutHigh,std::string fname){
+                
+        /////////////////////////
+        // COEFFICIENT ARRAYS  //
+        /////////////////////////
+        
+        COMPLEX *BRef=new COMPLEX[NumberOfHarmonics+1];
+        
+        // RESET //
+        for(int n=0;n<=NumberOfHarmonics;n++){
+            BRef[n]=COMPLEX(0.0,0.0);
+        }
+        
+        /////////////////////////
+        //  GET COEFFICIENTS   //
+        /////////////////////////
+        
+        for(int ik=0;ik<Nk;ik++){
+            
+            // DETERMINE FOURIER HARMONICS //
+            for(int iphi=0;iphi<NPhi;iphi++){
+                
+                for(int n=0;n<=NumberOfHarmonics;n++){
+                    
+                    if(GetK(ik)>=pTCutLow && GetK(ik)<=pTCutHigh){
+                        BRef[n]+=std::pow(GetK(ik),nWeight)*Values[ik][iphi]*exp(DOUBLE(n)*ComplexI*GetPhi(iphi));
+                    }
+                }
+            }
+            
+        }
+        
+        // CREATE OUTPUT //
+        std::ofstream OutStream;
+        OutStream.open(fname.c_str(),std::ofstream::out | std::ofstream::app);
+        
+        for(int n=0;n<=NumberOfHarmonics;n++){
+            OutStream << " " <<  SQR_ABS(BRef[n]);
+        }
+        OutStream << std::endl;
+        
+        OutStream.close();
+        
+        
+    }
+    
     ///////////////////////
     // OBJECT MANAGEMENT //
     ///////////////////////

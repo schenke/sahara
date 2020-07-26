@@ -1,6 +1,6 @@
 WORKSPACE="tmp"; MULTIPLICITYCLASS="../0.95MB1.05"; T="0.2005";
 
-for SPECIES in "Gluon"
+for SPECIES in "Gluon" "SmearedGluon"
 do
 
 mkdir ${WORKSPACE}
@@ -101,7 +101,7 @@ done
 
 
 
-for SPECIES in "Hadron"
+for SPECIES in "Hadron" "SmearedHadron"
 do
 
 mkdir ${WORKSPACE}
