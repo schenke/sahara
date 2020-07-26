@@ -1,7 +1,25 @@
+
+// DEFINE INITIAL DISTRIBUTION PARAMETERS //
+namespace InitialParameters {
+    
+    double g = 2.75;
+    int randaz = 0;
+    
+    // PRINT //
+    void Print(){
+        
+        std::cerr << "#INITIAL DISTRIBUTION PARAMETERS ARE" << std::endl;
+        std::cerr << "#g=" << g << std::endl;
+        std::cerr << "#randaz=" << randaz << std::endl;
+
+    }
+    
+}
+
 namespace IPGlasmaInterface{
     
   static const double M_HBARC=0.1973269804;
-  static const double g=2.75;
+  double g=InitialParameters::g;
   
     double *pXValues;
     double *pYValues;
@@ -51,8 +69,9 @@ namespace IPGlasmaInterface{
     void Setup(std::string EventClass,int EventID){
         
         // GET SMEARED DISTRIBUTION FROM IP-GLASMA EVENT OUTPUT //
+        InitialParameters::Print();
         dNdyd2pd2xValues=new double[NsX*NsY*NpX*NpY];
-        
+         
         pXValues=new double[NpX];
         pYValues=new double[NpY];
         
@@ -306,7 +325,23 @@ namespace IPGlasmaInterface{
                             // GET E,pZ MOMENTA //
                             double E=pT*cosh(yRap);
                             double pZ=pT*sinh(yRap);
-      
+
+			    // RANDOMIZE AZIMUTHAL ANGLE IF OPTION IS CHOSEN //
+			    if(InitialParameters::randaz == 1){
+			      double phi = 2.*M_PI*drand48();
+			      
+			      double pXnew = pX*cos(phi) - pY*sin(phi);
+			      double pYnew = pX*sin(phi) + pY*cos(phi);
+			      pX = pXnew;
+			      pY = pYnew;
+			      
+			      double xnew = x*cos(phi) - y*sin(phi);
+			      double ynew = x*sin(phi) + y*cos(phi);
+			      x = xnew;
+			      y = ynew;
+
+			    }
+			    
                             // SET NEW PARTICLE //
                             Particle NewGluon;
                             

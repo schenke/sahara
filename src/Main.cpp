@@ -107,12 +107,17 @@ int main ( int argc, char *argv[] ){
     char WorkingDirectory[1024]="TMP";
     CommandlineArguments.Getval("w",WorkingDirectory);
     
+    // SET INITIAL DISTRBUTION PARAMETERS //
+    CommandlineArguments.Getval("g",InitialParameters::g);
+    CommandlineArguments.Getval("randaz",InitialParameters::randaz);
+    
     // SET CLUSTERING PARAMETERS //
     CommandlineArguments.Getval("alpha",ClusteringParameters::alpha);
     CommandlineArguments.Getval("NMin",ClusteringParameters::MininalParticleNumberPerCluster);
     
+
     // SEED RNG //
-    srand48(time(0));
+    srand48(time(0)+EventID);
  
     // GET SMEARED DISTRIBUTIONS FORM IP-GLASMA EVENT AND SETUP SAMPLING //
 
